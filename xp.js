@@ -187,7 +187,9 @@ return new Promise((resolve, reject) => {
    $.get(balanceurl,(error, response, data) =>{
      const result = JSON.parse(data)
         if(logs)$.log(data)
-     message += '金币余额：'+result.data.coinSum+'\n现金余额：'+result.data.balanceSum/100+'\n'
+     //message += '金币余额：'+result.data.coinSum+'\n现金余额：'+result.data.balanceSum/100+'\n'
+     message += '金币余额：'+'\n现金余额：'+result.data.balanceSum/100+'\n'
+
     coins = result.data.balanceSum/100;
           resolve()
     })

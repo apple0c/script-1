@@ -121,6 +121,10 @@ if (!videoheaderArr[0]) {
     $.msg($.name, '【提示】请先获取笑谱一cookie')
     return;
   }
+   
+  //循环
+ if ($.isNode()) {
+  while(true){
    console.log(`------------- 共${videoheaderArr.length}个账号----------------\n`)
   for (let i = 0; i < videoheaderArr.length; i++) {
     if (videoheaderArr[i]) {
@@ -141,6 +145,35 @@ if (!videoheaderArr[0]) {
       await showmsg()
   }
  }
+      console.log(`========================本次任务执行完毕，休息1分钟==============================\n`);
+      await $.wait(90000)
+
+    }
+  }else{
+   console.log(`------------- 共${videoheaderArr.length}个账号----------------\n`)
+  for (let i = 0; i < videoheaderArr.length; i++) {
+    if (videoheaderArr[i]) {
+      message = ''
+      signheader = videoheaderArr[i];
+      videobody = videobodyArr[i];
+      $.index = i + 1;
+      console.log(`\n开始【笑谱${$.index}】`)
+     //await invite()
+      await getNowFormatDate()
+      await profit()
+      await balance()
+      await status()
+      await control()
+      //await withdraw()
+      //await watch_livevideo()
+      await showmsg()
+  }
+ }
+
+  }
+ //==============自定义循环==========================
+
+
 })()
     .catch((e) => $.logErr(e))
     .finally(() => $.done())
@@ -173,7 +206,7 @@ async function control(){
    }else{
       await watch_video();
 }
-   if(no < 50 && hour >= 8 && hour <= 23 && $.getval("live") == 1){
+   if(no < 50 && hour >= 8 && hour <= 23){
        await watch_livevideo();
 }
 }
@@ -187,8 +220,7 @@ return new Promise((resolve, reject) => {
    $.get(balanceurl,(error, response, data) =>{
      const result = JSON.parse(data)
         if(logs)$.log(data)
-     message += '金币余额：'+'\n现金余额：'+result.data.balanceSum/100+'\n'
-
+     message += '金币余额：'+result.data.coinSum+'\n现金余额：'+result.data.balanceSum/100+'\n'
     coins = result.data.balanceSum/100;
           resolve()
     })
@@ -211,8 +243,8 @@ return new Promise((resolve, reject) => {
        $.done()
       }
 var random = ''
-for(let i = 1;i<=6;i++){
-  const No = Math.round(Math.random()*10)
+for(let i = 1;i<=7;i++){
+  const No = Math.round(Math.random()*9)
      random += No;
 }
 video = '134869212528'+random
